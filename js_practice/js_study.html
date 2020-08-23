@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900|Roboto:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+    
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="js_style.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
+        
+        <title>배달음식 추첨기</title>
+    </head>
+    
+    <body>
+        <div id="title">
+            <h1>오늘은 뭘 시켜먹을까?</h1>
+        </div>
+        <section id="food">
+            <div id="food_title"><p>배는 고픈데 무슨 음식을 시켜먹을지 고민된다면?</p></div>
+        
+                    <script>
+
+                    let randomNumber = Math.floor(Math.random()* 21 );
+                    let food = '';
+                    
+                    
+/*                    if (randomNumber===0) {
+                        food = '떡볶이';
+                    } else if (randomNumber===1) {
+                        food = '피자';
+                    } else if (randomNumber===2) {
+                        food = '치킨';
+                    } else if (randomNumber===3) {
+                        food = '햄버거';
+                    } else {
+                        food = '김밥';
+                    }*/
+
+                    
+                    function foodRandomPick() {
+                        switch (randomNumber) {
+                            case 0: 
+                                food = '떡볶이';
+                                break;
+                            case 1: 
+                                food = '피자';
+                                break;
+                            case 2: 
+                                food = '치킨';
+                                break;
+                            case 3: 
+                                food = '햄버거';
+                                break;
+                            case 4: 
+                                food = '찜닭';
+                                break;
+                            case 5: 
+                                food = '짜장면';
+                                break;
+                            case 6: 
+                                food = '족발';
+                                break;
+                            case 7: 
+                                food = '보쌈';
+                                break;
+                            case 8: 
+                                food = '짬뽕';
+                                break;
+                            case 9: 
+                                food = '냉면';
+                                break;
+                            case 10: 
+                                food = '김밥';
+                                break;
+                            case 11: 
+                                food = '파스타';
+                                break;
+                            case 12: 
+                                food = '쌀국수';
+                                break;
+                            case 13: 
+                                food = '토스트';
+                                break;
+                            case 14: 
+                                food = '갈비찜';
+                                break;
+                            case 15: 
+                                food = '쪽갈비';
+                                break;
+                            case 16: 
+                                food = '곱창';
+                                break;
+                            case 17: 
+                                food = '돈까스';
+                                break;
+                            case 18: 
+                                food = '회/스시';
+                                break;
+                            case 19: 
+                                food = '스테이크';
+                                break;
+                            case 20: 
+                                food = '쌈밥';
+                                break;                       
+                        }
+                        
+                        
+                        return document.write('오늘 추천드리는 배달 음식은, ' + food + '입니다!').innerHTML;
+                    }
+                    
+                </script>
+                
+             <div id="food_form_container">  
+                <form>
+                    <input id="food_btn" type="button" value="음식 버튼" onclick='foodRandomPick()'>
+                </form>
+            </div>
+        
+        
+            <div class="container">
+                <div class="content_title"><p>그런데 지금 몇시인가요?</p></div>
+            </div>
+            
+            <div class="container">
+                <div class="content_title"><p>배달금액은 총 얼마인가요?</p></div>
+            </div>
+            
+            <div class="container">
+                <div class="content_title"><p>이번엔 누가 계산할까요?</p></div>
+            </div>
+            
+            
+        
+        </section>
+        
+        
+            
+            
+
+
+            
+            
+        
+    
+    </body>
+   
+</html>

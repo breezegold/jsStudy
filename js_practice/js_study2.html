@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html>
+    
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900|Roboto:100,300,400,500,700,900&display=swap&subset=korean" rel="stylesheet">
+    
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="js_style.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
+        
+        <title>배달음식 추첨기</title>
+    </head>
+    
+    <body>
+        <div id="title">
+            <h1><span id="title_back">오늘은 뭘 시켜먹을까?</span></h1>
+        </div>
+        
+        <section id="food">
+            <div id="food_title"><p>배는 고픈데 무슨 음식을 시켜먹을지 고민된다면?</p></div>
+            <div id="food_txt"><p>오늘 먹을 배달 음식은?</p></div>
+            
+                 <script>
+
+                    var pickFood = Array('떡볶이', '피자', '치킨', '햄버거', '찜닭', '족발', '보쌈', '짬뽕', '냉면', '김밥', '파스타', '쌀국수', '토스트', '갈비찜', '쪽갈비', '곱창', '돈까스', '회/스시', '스테이크', '쌈밥')
+                    let food = '';
+                    
+                   
+                    
+                    function foodWrite(){
+                        var randomFood = pickFood[Math.floor(Math.random()*pickFood.length)];
+                        document.getElementById("food_txt").innerHTML="오늘 추천드리는 배달 음식은, " + randomFood + "입니다!";
+        
+                    }
+                     
+                    
+
+                </script>
+                
+             <div id="form_container">   
+                <form id="food_form">
+                    <input id="food_btn" type="button" value="음식 고르기" onclick="foodWrite()">
+                </form>
+            </div>
+            
+            <hr>
+            
+            <div class="container">
+                
+                <div class="content_title"><p>잠깐! 그런데 지금 몇시인가요?</p></div>
+            
+                
+                <div id = currentTime_txt>
+                    <div id="digital_clock">
+                        
+
+                        <script>
+
+                            function printClock() {
+
+                                var clock = document.getElementById("clock");            
+                                var currentDate = new Date();                                     
+                                var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() 
+                                var amPm = 'AM'; 
+                                var currentHours = addZeros(currentDate.getHours(),2); 
+                                var currentMinute = addZeros(currentDate.getMinutes() ,2);
+                                var currentSeconds =  addZeros(currentDate.getSeconds(),2);
+
+
+                                clock.innerHTML = currentHours+":"+currentMinute+":"+currentSeconds +" <span style='font-size:50px;'>"+ amPm+"</span>"; 
+                                setTimeout("printClock()",1000);         
+                            }
+
+                            function addZeros(num, digit) {
+                                  var zero = '';
+                                  num = num.toString();
+                                  if (num.length < digit) {
+                                    for (i = 0; i < digit - num.length; i++) {
+                                      zero += '0';
+                                    }
+                                  }
+                                  return zero + num;
+                            }
+                        </script>
+
+
+                        <body onload="printClock()">
+                                <div style="width:600px; height:250px; line-height:250px; color:#666;font-size:88px; font-family: Roboto; font-weight: 600; text-align:center;" id="clock">
+                                </div>
+                        </body>
+
+
+     
+                        
+                        
+                        <script>
+                            let currentTime = new Date();
+                            let hour = currentTime.getHours();
+                            
+
+                            function ifHour() {
+                                if(23<=hour || hour<=7) {
+                                    document.getElementById("time_txt2").innerHTML="저런! 벌써 시간이 " + hour +  "시나 되었어요! 배달 시켜 먹기에는 시간이 너무 늦었네요! 건강을 위해 한숨 자고 일어나 시켜먹도록 해요.";
+                                } else {
+                                    document.getElementById("time_txt2").innerHTML= '현재 시간은 ' +hour + '시네요! 배달 시켜 먹기 괜찮은 시간이에요. 어서 주문하러 가요!' + '<br><br> <a id="link" href="https://www.baemin.com/" target="_blank">배민에서 주문하기</a>' + '<br><a id="link" href="https://www.yogiyo.co.kr/mobile/#/" target="_blank">요기요에서 주문하기</a>';
+                                }
+                            }
+                            
+                        </script>
+                    </div>
+                    
+                    <div id="time_txt2">
+                        <p>건강을 위해서 너무 늦거나 이른 시간에는 배달 음식을 시켜 먹지 않는 것이 좋아요.</p>
+                    </div>
+                </div>
+                
+                <form id="time_form">
+                    <input id="time_btn" type="button" value="배달 주문하러 가기" onclick="ifHour()">
+                </form>
+            </div>
+            
+            <hr>
+            
+            <div class="container">
+                <div class="content_title"><p>배달금액은 총 얼마인가요?</p></div>
+                <div id="cal_txt"><p>계산기로 배달 금액을 계산해봅시다.</p></div>
+                
+                <div id="cal">
+                    <table border="1">
+                        <tr>
+                            <td colspan="4">
+                                <input type="text" id="display">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <input type="text" id="result">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" onclick="reset()">AC</td>
+                            <td onclick="add('/')">/</td>
+                        </tr>
+                        <tr>
+                            <td onclick="add(7)">7</td>
+                            <td onclick="add(8)">8</td>
+                            <td onclick="add(9)">9</td>
+                            <td onclick="add('*')">*</td>
+                        </tr>
+                        <tr>
+                            <td onclick="add(4)">4</td>
+                            <td onclick="add(5)">5</td>
+                            <td onclick="add(6)">6</td>
+                            <td onclick="add('-')">-</td>
+                        </tr>
+                        <tr>
+                            <td onclick="add(1)">1</td>
+                            <td onclick="add(2)">2</td>
+                            <td onclick="add(3)">3</td>
+                            <td onclick="add('+')">+</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" onclick="add(0)">0</td>
+                            <td onclick="add('.')">.</td>
+                            <td onclick="cal()">=</td>
+                        </tr>
+                    
+                    </table>
+                    
+                    <script>
+                        function add(char){
+                            let display = document.getElementById('display');
+                            display.value = display.value + char;
+                        }
+                        
+                        function cal() {
+                            let display = document.getElementById("display");
+                            let result = eval(display.value);
+                            document.getElementById("result").value = result;
+                            document.getElementById("calPrice_txt").innerHTML = result + "원 입니다!";
+                        }
+                        
+                        function reset() {
+                            document.getElementById("display").value = "";
+                            document.getElementById("result").value = "";
+                            document.getElementById("calPrice_txt").innerHTML = "주문할 배달 음식의 총 금액은, "
+                        }
+                    
+                    </script>
+                
+                </div>
+                
+                <div id="calPrice_txt">
+                    <p>주문할 배달 음식의 총 금액은, </p>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="container">
+                <div class="content_title"><p>이번엔 누가 계산할까요?</p></div>
+                <div id="personRandom_txt"></div>
+            </div>
+            
+            
+            <div id="sadari_game">
+                <script>
+                    var Yl = {
+                     getEl : function(strId){
+                      if (document.getElementById) return document.getElementById(strId); 
+                      if (document.all) return document.all[strId];
+                     }
+                     
+                     ,getDiv : function(sWidth, sHeight, sBgColor){
+                      var d = document.createElement("div");
+                      if(sWidth) d.style.width = sWidth;
+                      if(sHeight) d.style.height = sHeight;
+                      if(sBgColor) d.style.backgroundColor = sBgColor;
+                      d.style.position = "absolute";
+                      d.style.overflow = "hidden";  
+                      return d;
+                     }
+                     ,arrColor : [
+                      '#6FC8BB', '#F7CD8D', '#545991', '#EADECE', '#E8755B'
+                      ]  
+                     ,arrVerDiv : [] //수직 선
+                     ,arrHorDiv : [] //수평 선 
+                     ,arrMovDiv : [] //이동 선
+
+                     ,arrIng : []
+
+                     ,arrMDiv : [] 
+
+                     ,nMaxWidth : 1000 //최고 넓이
+                     ,nWidth : 0 //사다리 넓이
+                     ,nHeight : 300 //사다리 높이
+
+                     ,nNum : 0
+
+                     ,arrTopDiv : [] 
+                     ,arrBotDiv : []
+                     ,arrGoDiv : []
+
+                     ,init : function(){
+
+                      //갯수
+                      this.nNum = parseInt(this.getEl("sel_num").value);
+
+                      //넓이
+                      this.nWidth = parseInt(this.nMaxWidth/this.nNum);
+
+                      for(var i=0; i<this.nNum; i++){
+
+                       this.arrTopDiv[i] = this.getDiv(this.nWidth+"px", "50px", "");
+                       this.arrBotDiv[i] = this.getDiv(this.nWidth+"px", "50px", "");
+                       this.arrGoDiv[i] = this.getDiv(this.nWidth+"px", "30px", "");
+
+                       this.arrTopDiv[i].style.left = (i*this.nWidth)+"px";
+                       this.arrTopDiv[i].style.top = "20px";
+
+                       this.arrBotDiv[i].style.left = (i*this.nWidth)+"px";
+                       this.arrBotDiv[i].style.top = "410px";
+
+                       this.arrGoDiv[i].style.left = (i*this.nWidth)+"px";
+                       this.arrGoDiv[i].style.top = "70px";
+
+                       this.arrTopDiv[i].style.fontSize="12px";
+                       this.arrBotDiv[i].style.fontSize="12px";
+
+
+                       this.arrTopDiv[i].align = "center";
+                       this.arrBotDiv[i].align = "center";
+                       this.arrGoDiv[i].align = "center";
+
+                       this.arrTopDiv[i].innerHTML = (i+1)+'<br><input type="text" id="inp_top_'+i+'" placeholder="이름을 입력해주세요" style="width:90%" tabindex="'+(i+1)+'" />';
+                       this.arrBotDiv[i].innerHTML = '<input type="text" id="inp_bot_'+i+'" placeholder="당첨 칸을 정해주세요" style="width:90%" tabindex="'+((i+1)+50)+'" />';
+
+                       this.getEl("div_body").appendChild(this.arrTopDiv[i]);  
+                       this.getEl("div_body").appendChild(this.arrBotDiv[i]);
+                       this.getEl("div_body").appendChild(this.arrGoDiv[i]);  
+
+
+                       this.arrVerDiv[i] = this.getDiv("1px", this.nHeight+"px", "#bbbbbb");
+
+                       this.arrVerDiv[i].style.left = ( (i*this.nWidth)+parseInt(this.nWidth/2) )+"px";
+                       this.arrVerDiv[i].style.top = "100px";
+
+                       this.getEl("div_body").appendChild(this.arrVerDiv[i]); 
+
+                      }
+
+                      this.getEl("div_step1").style.display = "none";
+                      this.getEl("div_step2").style.display = "";  
+
+                     }
+                     ,create : function(){ //사다리 생성
+
+                      for(var i=0; i<this.nNum; i++){
+
+                       this.arrTopDiv[i].innerHTML = (i+1)+"<br>"+this.getEl("inp_top_"+i).value;
+                       this.arrBotDiv[i].innerHTML = this.getEl("inp_bot_"+i).value;
+                       this.arrGoDiv[i].innerHTML = '<input type="button" value="GO" onClick="Yl.start('+i+')">';
+
+                       this.arrTopDiv[i].style.overflow = "auto";
+                       this.arrBotDiv[i].style.overflow = "auto";
+
+                       this.arrIng[i] = false;
+
+                       this.arrMDiv[i] = [];   
+                      }
+
+                      for(var i=0; i<(this.nNum*7); i++){
+
+                       var nLen = this.arrHorDiv.length;
+
+                       this.arrHorDiv[nLen] = this.getDiv(this.nWidth+"px","1px", "#aaaaaa");
+
+                       var nRndLeft = (parseInt(Math.random()*(this.nNum-1))*this.nWidth)+parseInt(this.nWidth/2);
+                       var nRndTop = this.getRndTop();
+
+                       this.arrHorDiv[nLen].style.left = nRndLeft+"px";
+                       this.arrHorDiv[nLen].style.top = nRndTop+"px";
+
+                       this.getEl("div_body").appendChild(this.arrHorDiv[nLen]);    
+                      }
+
+                      this.getEl("div_step2").innerHTML = "과연 누가 지갑을 열게 될지 GO 버튼을 눌러 확인하세요!";
+
+                     }
+                     ,sRndTop : ""
+                     ,getRndTop : function(){
+                      var nRnd = parseInt(Math.random()*(this.nHeight-100))+150; 
+
+                      if( this.sRndTop.indexOf( "["+nRnd+"]" ) < 0 ){
+                       this.sRndTop += "["+nRnd+"]";
+                       return nRnd;
+                      }else{
+                       return this.getRndTop();   
+                      }
+                     } 
+                     ,start : function( no ){
+
+                      if( this.arrIng[no] ){
+                       for(var i=0; i<this.arrMDiv.length; i++){
+                        for(var j=0; j<this.arrMDiv[i].length; j++){
+                         this.arrMovDiv[this.arrMDiv[i][j]].style.backgroundColor = "#CCCCCC"; 
+                         this.arrMovDiv[this.arrMDiv[i][j]].style.zIndex = 1;
+                        }
+
+                       }
+                       for(var i=0; i<this.arrMDiv[no].length; i++){
+                        this.arrMovDiv[this.arrMDiv[no][i]].style.backgroundColor = "#0000ff";
+                        this.arrMovDiv[this.arrMDiv[no][i]].style.zIndex = 2;
+                       }
+                      }else{
+
+                       var nSx = parseInt(this.arrVerDiv[no].style.left);
+                       var nSy = parseInt(this.arrVerDiv[no].style.top);
+
+                       this.moveStart("y", no, nSx, nSy);
+
+                       this.arrIng[no] = true; //진행
+                      }
+
+                     }
+                     ,moveStart : function(sXy, pno, nSx, nSy){
+
+                      var nLen = this.arrMovDiv.length;
+
+                      this.arrMovDiv[nLen] = this.getDiv("2px","2px", this.arrColor[pno]);
+
+                      this.arrMDiv[pno].push(nLen);
+
+                      this.getEl("div_body").appendChild(this.arrMovDiv[nLen]);  
+
+                      this.arrMovDiv[nLen].style.left = nSx+"px";
+                      this.arrMovDiv[nLen].style.top = nSy+"px";
+
+                      this.arrMovDiv[nLen].style.zIndex = 3;
+
+
+                      var nEx = nSx;
+                      var nEy = nSy;
+                      if(sXy=="y") nEy = this.nHeight+100;
+
+                      var bCk = false;
+
+                      for(var i=0; i<this.arrHorDiv.length; i++){
+
+                       var nx = parseInt(this.arrHorDiv[i].style.left);
+                       var ny = parseInt(this.arrHorDiv[i].style.top);  
+                       var nw = parseInt(this.arrHorDiv[i].style.width);
+                       var nh = parseInt(this.arrHorDiv[i].style.height);
+
+                       if(sXy=="x"){
+                        if( ny == nSy ){
+                         if( nx==nSx ){
+                          nEx = nx+nw;
+                          break;
+                         }else if( (nx+nw)==nSx ){
+                          nEx = nx;
+                          break;
+                         }     
+                        }
+                       }else{
+
+                        
+                           
+                        if( ny>nSy ){
+
+                         if( nx==nEx || (nx+nw)==nEx ){
+
+                          if(bCk){
+                           if(ny<nEy) nEy = ny;
+                          }else
+                           nEy = ny; 
+
+                          bCk = true; 
+                         } 
+                        }
+                       }
+                      }
+
+                      this.move(nLen, pno, nSx, nSy, nEx, nEy);     
+                     }
+                     ,nSpeed : 10
+                     ,move : function(no, pno, nSx, nSy, nEx, nEy){
+
+                      var nx = parseInt(this.arrMovDiv[no].style.left);
+                      var ny = parseInt(this.arrMovDiv[no].style.top);  
+                      var nw = parseInt(this.arrMovDiv[no].style.width);
+                      var nh = parseInt(this.arrMovDiv[no].style.height);
+
+                      var np;
+                      var bIng = true;
+
+                      var sXy = "";
+
+                      if( nSx != nEx ){
+                       np = nw+this.nSpeed;
+                       if(nEx<nSx){
+                        if( (nSx-np) <= nEx ){
+                         bIng = false;
+                         np = nSx-nEx;
+                        }   
+                        this.arrMovDiv[no].style.left = (nSx-np)+"px"; 
+                       }else{
+                        if( (nSx+np) >= nEx ){
+                         bIng = false;
+                         np = nEx-nSx;
+                        }       
+                       }
+
+                       this.arrMovDiv[no].style.height = "4px";
+                       this.arrMovDiv[no].style.width = np+"px"; 
+
+                       sXy = "x";
+                      }else{
+
+                       np = nh+this.nSpeed;
+                       if( (nSy+np) >= nEy ){
+                        bIng = false;
+                        np = nEy-nSy;
+                       }
+
+                       this.arrMovDiv[no].style.width = "4px";   
+                       this.arrMovDiv[no].style.height = np+"px";   
+
+                       sXy = "y";
+                      }
+
+
+                      if(bIng){
+
+                       setTimeout("Yl.move("+no+","+pno+","+nSx+","+nSy+","+nEx+","+nEy+")", 1);
+
+                      }else{
+
+                       if((sXy=="x")) this.arrMovDiv[no].style.height = "2px";
+                       else this.arrMovDiv[no].style.width = "2px";
+
+                       if( nEy<this.nHeight+100 ){
+                        this.moveStart((sXy=="x")?"y":"x", pno, nEx, nEy);
+                       }else{
+
+                        for(var i=0; i<this.arrVerDiv.length; i++){
+                         if(nEx==parseInt(this.arrVerDiv[i].style.left)){      
+
+                          this.arrBotDiv[i].innerHTML = "<b>"+(pno+1)+"</b><br>"+this.arrBotDiv[i].innerHTML;
+
+                          this.arrGoDiv[pno].innerHTML = '<input type="button" value="확인" onClick="Yl.start('+pno+')">';
+
+                          break;
+                         }
+                        }  
+                       }
+                      }
+                     }
+                    };
+
+                    </script>
+
+
+                    <div id="div_step1" style="font-size:14px;">
+
+                    갯수 선택
+                    <select id="sel_num">
+                     <option value="2">2</option>
+                     <option value="3" selected>3</option>
+                     <option value="4">4</option>
+                     <option value="5">5</option>
+                    </select>
+                    개
+
+                    <input id="start_btn" type="button" value=" 사다리 타기 시작하기 " onclick="Yl.init();" style="font-size:16.5px;">
+
+                    </div>
+
+
+                    <div id="div_step2" style="font-size:16px;display:none;">
+                     이름과 당첨칸을 입력했으면, <input id="game_start_btn" type="button" value=" 게임 시작! " onclick="Yl.create();" style="font-size: 16.5px;">
+                    </div>
+
+
+
+                    <div id="div_body" style="width:1000px; height:450px; border:1px solid #CCCCCC; position:relative;"></div>
+                
+                //사다리타기 게임 소스 : https://howcode.co.kr/bbs/board.php?bo_table=javascript&wr_id=402
+
+            </div>
+            
+          
+            
+            
+        
+        </section>
